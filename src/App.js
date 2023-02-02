@@ -39,19 +39,19 @@ function App() {
   }
 
   const updateWeatherImage = (data) => {
-    if (data.weather[0].main == "Clouds" || data.weather[0].main == "Mist"){
+    if (data.weather[0].main === "Clouds" || data.weather[0].main == "Mist"){
       setWeatherImage(cloudyImage)
       document.body.style.backgroundColor = "grey";
     }
-    if (data.weather[0].main == "Clear"){
+    if (data.weather[0].main === "Clear"){
       setWeatherImage(sunnyImage)
       document.body.style.backgroundColor = "orange";
     }
-    if (data.weather[0].main == "Rain"){
+    if (data.weather[0].main === "Rain"){
       setWeatherImage(rainyImage)
       document.body.style.backgroundColor = "#53789e";
     }
-    if (data.weather[0].main == "Snow"){
+    if (data.weather[0].main === "Snow"){
       setWeatherImage(snowyImage)
       document.body.style.backgroundColor = "#C0F6FB";
     }

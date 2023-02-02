@@ -5,9 +5,79 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(11, 22, 44);
+  color: white;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  padding-top: 2em;
+}
+
+.search input {
+  width: 20em;
+  height: 1em;
+  border-radius: 2em;
+  border: none;
+  padding: 1em;
+  margin-bottom: 5em;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 2.5em;
+  max-width: 960px;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+.location {
+  display: flex;
+  justify-content: center;
+}
+
+.location p {
+  margin: 0px;
+  padding: 0px;
+  font-size: 2em;
+}
+
+.bottom {
+  display: flex;
+  gap: 2em;
+  justify-content: center;
+}
+
+.middle {
+  align-items: baseline;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10em;
+  align-items: center;
+}
+
+.middle p{
+  font-size: 1.25em;
+}
+
+.bottom * p {
+  text-align: center;
+}
+
+h1 {
+  font-size: 4em;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  height: 10em;
+  filter: invert(100%) sepia(100%) saturate(2%) hue-rotate(219deg) brightness(111%) contrast(101%);;
 }

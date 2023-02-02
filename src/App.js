@@ -63,7 +63,7 @@ function App() {
         <input value={location} onChange={event => setLocation(event.target.value)} type="text" placeholder='Enter Location' onKeyPress={searchLocation}></input>
       </div>
       <div className="container"> 
-        <img src={weatherImage} alt="Wind"></img>
+        <img src={weatherImage} alt=""></img>
         <div className="Top">
           <div className='location'> 
             <p>{ data.main ? `${data.name}` : null}</p>

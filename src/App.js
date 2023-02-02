@@ -22,6 +22,7 @@ function App() {
           latitude = lat
           longitude = lng
           getCityDataFromCoords()
+          document.querySelector("#search").blur()
         },
         (error) => {
           console.error(error);
@@ -60,7 +61,7 @@ function App() {
   return (
     <div className="app">
       <div className="search">
-        <input value={location} onChange={event => setLocation(event.target.value)} type="text" placeholder='Enter Location' onKeyPress={searchLocation}></input>
+        <input id="search" value={location} onChange={event => setLocation(event.target.value)} type="text" placeholder='Enter Location' onKeyPress={searchLocation}></input>
       </div>
       <div className="container"> 
         <img src={weatherImage} alt=""></img>

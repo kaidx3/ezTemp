@@ -39,7 +39,7 @@ function App() {
   }
 
   const updateWeatherImage = (data) => {
-    if (data.weather[0].main === "Clouds" || data.weather[0].main == "Mist"){
+    if (data.weather[0].main === "Clouds" || data.weather[0].main === "Mist"){
       setWeatherImage(cloudyImage)
       document.body.style.backgroundColor = "grey";
     }

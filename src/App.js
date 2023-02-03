@@ -63,7 +63,7 @@ function App() {
   }
 
   const getCityDataFromCoords = () => {
-    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=2f7da05d2c6127b84619fafd58094128`).then((response) => {
+    axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&appid=2f7da05d2c6127b84619fafd58094128`).then((response) => {
       setData(response.data)
       console.log(response.data.name)
       updateWeatherImage(response.data)

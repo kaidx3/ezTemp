@@ -20,7 +20,6 @@ function App() {
     latitude = position.coords.latitude
     longitude = position.coords.longitude
     getCityDataFromCoords()
-    getCityNameFromLatLong()
   };
 
   const errorCallback = (error) => {
@@ -29,19 +28,6 @@ function App() {
 
   if (!currentPositionKnown){
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  }
-
-  const getCityNameFromLatLong = () => {
-    Geocode.fromLatLng(latitude, longitude).then(
-      (response) => {
-        const address = response.results[7].address_components[0].long_name;
-        setCityName(address)
-        setCurrentPositionKnown(true)
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
   }
 
   const searchLocation = (event) => {
@@ -65,8 +51,10 @@ function App() {
   const getCityDataFromCoords = () => {
     axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=2f7da05d2c6127b84619fafd58094128`).then((response) => {
       setData(response.data)
-      console.log(response.data.name)
+      console.log(response.data)
       updateWeatherImage(response.data)
+      setCityName(response.data.name)
+      setCurrentPositionKnown(true)
     })
     setLocation('')
   }

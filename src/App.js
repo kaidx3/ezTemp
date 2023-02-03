@@ -7,12 +7,28 @@ import rainyImage from "./assets/wi-showers.svg"
 import snowyImage from "./assets/wi-snow-wind.svg"
 
 function App() {
+  const [currentPositionKnown = false, setCurrentPositionKnow] = useState()
   const [data, setData] = useState({})
   const [weatherImage, setWeatherImage] = useState('')
+  const [cityName, setCityName] = useState()
   let latitude
   let longitude
   const [location, setLocation] = useState('')
   Geocode.setApiKey('AIzaSyCZd2lKTv-fsIDH-nQjYkckN2G31y6bloU')
+
+  const successCallback = (position) => {
+    latitude = position.coords.latitude
+    longitude = position.coords.longitude
+    getCityDataFromCoords()
+  };
+
+  const errorCallback = (error) => {
+    console.log(error);
+  };
+
+  if (!currentPositionKnown){
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  }
 
   const searchLocation = (event) => {
     if (event.key === 'Enter') {
@@ -21,6 +37,7 @@ function App() {
           const { lat, lng } = response.results[0].geometry.location;
           latitude = lat
           longitude = lng
+          setCityName(response.results[0].address_components[0].long_name)
           getCityDataFromCoords()
           document.querySelector("#search").blur()
         },
@@ -35,6 +52,11 @@ function App() {
     axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=2f7da05d2c6127b84619fafd58094128`).then((response) => {
       setData(response.data)
       updateWeatherImage(response.data)
+      if (!currentPositionKnown){
+        console.log(response.data.name)
+        setCityName(response.data.name)
+        setCurrentPositionKnow(true)
+      }
     })
     setLocation('')
   }
@@ -67,7 +89,7 @@ function App() {
         <img src={weatherImage} alt=""></img>
         <div className="Top">
           <div className='location'> 
-            <p>{ data.main ? `${data.name}` : null}</p>
+            <p>{ cityName ? `${cityName}` : null}</p>
           </div>
           <div className='middle'>
             <div className='temp'> 

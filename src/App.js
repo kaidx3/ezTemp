@@ -7,7 +7,7 @@ import rainyImage from "./assets/wi-showers.svg"
 import snowyImage from "./assets/wi-snow-wind.svg"
 
 function App() {
-  const [currentPositionKnown = false, setCurrentPositionKnow] = useState()
+  const [currentPositionKnown = false, setCurrentPositionKnown] = useState()
   const [data, setData] = useState({})
   const [weatherImage, setWeatherImage] = useState('')
   const [cityName, setCityName] = useState()
@@ -20,6 +20,7 @@ function App() {
     latitude = position.coords.latitude
     longitude = position.coords.longitude
     getCityDataFromCoords()
+    getCityNameFromLatLong()
   };
 
   const errorCallback = (error) => {
@@ -28,6 +29,19 @@ function App() {
 
   if (!currentPositionKnown){
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  }
+
+  const getCityNameFromLatLong = () => {
+    Geocode.fromLatLng(latitude, longitude).then(
+      (response) => {
+        const address = response.results[7].address_components[0].long_name;
+        setCityName(address)
+        setCurrentPositionKnown(true)
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   const searchLocation = (event) => {
@@ -51,12 +65,8 @@ function App() {
   const getCityDataFromCoords = () => {
     axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=2f7da05d2c6127b84619fafd58094128`).then((response) => {
       setData(response.data)
+      console.log(response.data.name)
       updateWeatherImage(response.data)
-      if (!currentPositionKnown){
-        console.log(response.data.name)
-        setCityName(response.data.name)
-        setCurrentPositionKnow(true)
-      }
     })
     setLocation('')
   }
@@ -65,18 +75,22 @@ function App() {
     if (data.weather[0].main === "Clouds" || data.weather[0].main === "Mist"){
       setWeatherImage(cloudyImage)
       document.body.style.backgroundColor = "grey";
+      document.body.style.color = "white"
     }
     if (data.weather[0].main === "Clear"){
       setWeatherImage(sunnyImage)
       document.body.style.backgroundColor = "orange";
+      document.body.style.color = "white"
     }
     if (data.weather[0].main === "Rain"){
       setWeatherImage(rainyImage)
       document.body.style.backgroundColor = "#53789e";
+      document.body.style.color = "white"
     }
     if (data.weather[0].main === "Snow"){
       setWeatherImage(snowyImage)
       document.body.style.backgroundColor = "#C0F6FB";
+      document.body.style.color = "gray"
     }
   }
 

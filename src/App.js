@@ -14,7 +14,7 @@ function App() {
   let latitude
   let longitude
   const [location, setLocation] = useState('')
-  Geocode.setApiKey('AIzaSyCZd2lKTv-fsIDH-nQjYkckN2G31y6bloU')
+  Geocode.setApiKey('YourGeoCodeApiKey')
 
   const successCallback = (position) => {
     latitude = position.coords.latitude
@@ -49,7 +49,7 @@ function App() {
   }
 
   const getCityDataFromCoords = () => {
-    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=2f7da05d2c6127b84619fafd58094128`).then((response) => {
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=YourApiKey`).then((response) => {
       setData(response.data)
       console.log(response.data)
       updateWeatherImage(response.data)
